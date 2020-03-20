@@ -1,0 +1,21 @@
+{
+    //Font
+    "editor.fontSize": 15,
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 22,
+    "workbench.iconTheme": "material-icon-theme",
+    //Formatting
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.detectIndentation": false,
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Atom Material Theme",
+    "prettier.tabWidth": 4,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.jediEnabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.startupEditor": "newUntitledFile"
+}

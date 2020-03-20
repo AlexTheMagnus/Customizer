@@ -1,0 +1,8 @@
+[core]
+   	excludesfile = ~/dotfiles/git/.gitignore #Ruta al .gitignore global
+	editor = gedit
+[user]
+	name = AlexTheMagnus
+	email = i72lulem@uco.es
+[push]
+	default = simple

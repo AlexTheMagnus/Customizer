@@ -1,0 +1,18 @@
+[submodule "zsh/custom/plugins/zsh-autosuggestions"]
+	path = zsh/custom/plugins/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "zsh/custom/plugins/zsh-syntax-highlighting"]
+	path = zsh/custom/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/custom/themes/spaceship-prompt"]
+	path = zsh/custom/themes/spaceship-prompt
+	url = git@github.com:denysdovhan/spaceship-prompt.git
+[submodule "zsh/custom/plugins/zsh-completions"]
+	path = zsh/custom/plugins/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
+[submodule "templates/python-kata-template"]
+	path = templates/python-kata-template
+	url = git@github.com:Pablorg99/python-kata-template.git
+[submodule "templates/typescript-kata-template"]
+	path = templates/typescript-kata-template
+	url = git@github.com:Pablorg99/typescript-kata-template.git
