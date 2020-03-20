@@ -1,23 +1,15 @@
 # TERMINAL USE
-alias rf="rm -rf"
-alias poweroff="systemctl poweroff -i"
-alias reboot="systemctl reboot -i"
+alias pdf='xdg-open'
+alias mkae='make'
 
 # META ALIASES
-alias aliases="vim $HOME/dotfiles/zsh/custom/aliases.zsh"
+alias aliases="gedit $HOME/dotfiles/zsh/custom/aliases.zsh"
 alias dotfiles-update="source $HOME/dotfiles/update.sh"
+alias project_hex='cd /home/alex/Pictures/Project_Hex && sudo ./Project_Hex.out && cd -'
+alias system-upgrade='sudo apt-get upgrade && project_hex'
 
 # DIRECTORIES
-alias sp="cd $HOME/development/repositories/sideprojects"
-alias katas="cd $HOME/development/repositories/codekatas"
-alias asl="cd $HOME/development/repositories/asl"
-alias uni="cd $HOME/development/repositories/university"
-
-# REPOSITORIES
-alias djangorecipes="cd $HOME/development/repositories/sideprojects/django-recipes && source venv/bin/activate"
-# alias reactrecipes="cd $HOME/development/repositories/sideprojects/react-recipes"
-alias ucopuntomobile="cd $HOME/development/repositories/sideprojects/ucopunto-mobile"
-alias practicesuco="cd $HOME/development/repositories/university/UCO-Practices"
+alias screenshots='nautilus /home/alex/Pictures/screenshots &'
 
 # TEMPLATES
 alias templatex="cp $HOME/dotfiles/templates/latexTemplate.tex . && mv latexTemplate.tex"
