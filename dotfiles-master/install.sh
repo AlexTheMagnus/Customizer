@@ -76,8 +76,8 @@ installProjectHex() {
 }
 
 installChrome() {
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb-O /tmp/google-chrome-stable_current_amd64.deb-O &>> $logFile
-    sudo apt install -y ./google-chrome-stable_current_amd64.deb
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb &>> $logFile
+    sudo apt install -y ./chrome.deb
 }
 
 installGuake() {
@@ -98,7 +98,7 @@ installDocker() {
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" >> $logFile
     sudo apt-get update >> $logFile
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io >> $logFile
-sudo usermod -aG docker $USER
+    sudo usermod -aG docker $USER
 }
 
 installDockerCompose() {
@@ -144,7 +144,7 @@ installDiscord() {
 }
 
 installFranz() {
-    wget https://github.com/meetfranz/franz/releases/download/v5.4.0/franz_5.4.0_amd64.deb -O /tmp/franz_5.4.0_amd64.deb &>> $logFile
+    wget https://github.com/meetfranz/franz/releases/download/v5.4.0/franz_5.4.0_amd64.deb -O /tmp/franz.deb &>> $logFile
     sudo dpkg -i /tmp/franz.deb &>> $logFile
     sudo apt-get install -f -y >> $logFile
 }
@@ -185,9 +185,12 @@ installOhMyZsh() {
   sudo apt-get install -y xclip >> $logFile
 }
 
-#GNOME Dash to Panel
 installDashToPanel(){
-    wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v30.shell-extension.zip -O /tmp/dash-to-paneljderose9.github.com.v29.shell-extension.zip &>> $logFile
+    wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v30.shell-extension.zip -O /tmp/dash-to-panel.zip &>> $logFile
+    uuid=$(unzip -c /tmp/dash-to-panel.zip metadata.json | grep uuid | cut -d \" -f4)
+    mkdir -p ~/.local/share/gnome-shell/extensions/$uuid
+    unzip -q /tmp/dash-to-panel.zip -d ~/.local/share/gnome-shell/extensions/$uuid/
+    gnome-shell-extension-tool -e $uuid
 }
 
 installFiraCode() {
@@ -248,7 +251,6 @@ installCaffeine & showLoading "Caffeine"
 installProjectHex & showLoading "Project_Hex"
 installGuake & showLoading "Guake"
 installChrome & showLoading "Chrome"
-#HAY QUE ACTUALIZARLO
 #installMegaSync & showLoading "MegaSync"
 #installTilda & showLoading "Tilda"
 #installVim & showLoading "Vim"
