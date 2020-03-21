@@ -71,7 +71,6 @@ installProjectHex() {
     sudo mv ./Project_Hex /opt/
     cd /opt/Project_Hex/
     make
-    sudo ./Project_Hex.out
     cd -
 }
 
@@ -223,10 +222,10 @@ developmentFolderStructure() {
 # CLONING REPOSITORIES #
 ########################
 cloneDotfiles() {
-  git clone --recurse-submodules -j8 git@github.com:Pablorg99/dotfiles.git $HOME/dotfiles &>> $logFile
+  git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/dotfiles &>> $logFile
 }
 
-# ASK SUDO PASSWORD
+# ASK SUDO PASSWORD (TO SAVE THE IN THE TERMINAL SESSION)
 sudo ls . > $logFile
 
 # SYSTEM UPDATE
@@ -283,9 +282,6 @@ developmentFolderStructure & showLoading "DEVELOPMENT FOLDER STRUCTURE"
 # CLONING REPOSITORIES
 echo "CLONING REPOSITORIES"
 cloneDotfiles & showLoading "Dotfiles"
-cloneDjangoRecipes & showLoading "Django Recipes"
-cloneUcoPuntoMobile & showLoading "Uco Punto Mobile"
-cloneUcoPractices & showLoading "Uco Practices"
 
 # SHELL CONFIGURATION
 sudo chsh -s /bin/zsh $USER
