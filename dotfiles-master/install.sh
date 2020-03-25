@@ -58,25 +58,19 @@ installCurl() {
   sudo apt-get install -y curl >> $logFile
 }
 
-#sshKey sin configurar??
 installNumixFolders() {
+	sudo apt-get install numix-icon-theme >> $logFile
     git clone git@github.com:AlexTheMagnus/numix-folders.git >> $logFile
     sudo mv ./numix-folders /opt/
     sudo mv /opt/numix-folders/numix-folders.desktop /usr/share/applications/
 }
 
-#sshKey sin configurar??
 installProjectHex() {
     git clone git@github.com:AlexTheMagnus/Project_Hex.git >> $logFile
     sudo mv ./Project_Hex /opt/
     cd /opt/Project_Hex/
     make
     cd -
-}
-
-installChrome() {
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb &>> $logFile
-    sudo apt install -y ./chrome.deb
 }
 
 installGuake() {
@@ -136,10 +130,15 @@ installTelegram() {
     if [ ! -d /opt/Telegram ]; then
         sudo mv /tmp/Telegram /opt/
     fi
+
+	/opt/Telegram/Telegram
+	pkill Telegram
 }
 
 installDiscord() {
-    sudo apt-get install -y discord >> $logFile
+	wget -O /tmp/discord.deb https://discordapp.com/api/download?platform=linux&format=deb &>> $logfile
+	sudo dpkg -i /tmp/discord.deb &>> $logFile
+	sudo apt-get install -f -y >> $logFile
 }
 
 installFranz() {
@@ -196,33 +195,16 @@ installFiraCode() {
   sudo apt-get install -y fonts-firacode >> $logFile
 }
 
-installTheFuck() {
-  sudo -H pip3 install thefuck >> $logFile
-}
-
 installNerdTree() {
   git clone https://github.com/scrooloose/nerdtree.git ~/.vim/pack/vendor/start/nerdtree &>> $logFile
   vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q &>> $logFile
-}
-
-################################
-# DEVELOPMENT FOLDER STRUCTURE #
-################################
-developmentFolderStructure() {
-  mkdir -p $HOME/development
-  mkdir -p $HOME/development/devtools
-  mkdir -p $HOME/development/repositories
-  mkdir -p $HOME/development/repositories/sideprojects
-  mkdir -p $HOME/development/repositories/codekatas
-  mkdir -p $HOME/development/repositories/asl
-  mkdir -p $HOME/development/repositories/university
 }
 
 ########################
 # CLONING REPOSITORIES #
 ########################
 cloneDotfiles() {
-  git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/dotfiles &>> $logFile
+  git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
 
 # ASK SUDO PASSWORD (TO SAVE THE IN THE TERMINAL SESSION)
@@ -236,26 +218,6 @@ echo -e "INSTALLING BASIC PACKAGES"
 installGit & showLoading "Git"
 installZsh & showLoading "Zsh"
 installCurl & showLoading "Curl"
-installDocker & showLoading "Docker"
-installDockerCompose & showLoading "Docker-Compose"
-installNpm & showLoading "Npm"
-installNode & showLoading "Node"
-installTelegram & showLoading "Telegram"
-installFranz & showLoading "Franz"
-installDiscord & showLoading "Discord"
-installSpotify & showLoading "Spotify"
-installVSCode & showLoading "VSCode"
-installNumixFolders & showLoading "Numix Folders"
-installCaffeine & showLoading "Caffeine"
-installProjectHex & showLoading "Project_Hex"
-installGuake & showLoading "Guake"
-installChrome & showLoading "Chrome"
-#installMegaSync & showLoading "MegaSync"
-#installTilda & showLoading "Tilda"
-#installVim & showLoading "Vim"
-#installYarn & showLoading "Yarn"
-#installPythonTools & showLoading "Python Tools"
-#installVirtualenv & showLoading "Virtualenv"
 
 
 # ADDING SSH KEY TO GITHUB
@@ -268,16 +230,35 @@ curl -i --header "Authorization: token $githubToken" --data "{\"title\": \"$(hos
 echo -ne "\n"
 yes | ssh -T git@github.com >> $logFile
 
+# INSTALLING OTHERS PACKAGES
+installDocker & showLoading "Docker" #Y
+installDockerCompose & showLoading "Docker-Compose" #Y
+installNpm & showLoading "Npm" #Y
+installNode & showLoading "Node" #Y
+installTelegram & showLoading "Telegram" #Y
+installFranz & showLoading "Franz" #Y
+installDiscord & showLoading "Discord" #N
+installSpotify & showLoading "Spotify" #Y
+installVSCode & showLoading "VSCode" #Y
+installNumixFolders & showLoading "Numix Folders" #N
+installCaffeine & showLoading "Caffeine" #Y
+installProjectHex & showLoading "Project_Hex" #N
+installGuake & showLoading "Guake" #Y
+#installMegaSync & showLoading "MegaSync"
+#installTilda & showLoading "Tilda"
+#installVim & showLoading "Vim"
+#installYarn & showLoading "Yarn"
+#installPythonTools & showLoading "Python Tools"
+#installVirtualenv & showLoading "Virtualenv"
+
+
 # EXTENSIONS AND PLUGINS
 echo "INSTALLING EXTENSIONS AND PLUGINS"
-installOhMyZsh & showLoading "Oh My Zsh"
-installDashToPanel & showLoading "Dash to Panel"
-installTheFuck & showLoading "TheFuck"
+installOhMyZsh & showLoading "Oh My Zsh" #N
+installDashToPanel & showLoading "Dash to Panel" #Y
+#installTheFuck & showLoading "TheFuck"
 #installFiraCode & showLoading "Fira Code"
 #installNerdTree & showLoading "NerdTree"
-
-# DEVELOPMENT FOLDER STRUCTURE
-developmentFolderStructure & showLoading "DEVELOPMENT FOLDER STRUCTURE"
 
 # CLONING REPOSITORIES
 echo "CLONING REPOSITORIES"
@@ -285,6 +266,6 @@ cloneDotfiles & showLoading "Dotfiles"
 
 # SHELL CONFIGURATION
 sudo chsh -s /bin/zsh $USER
-zsh "$HOME/dotfiles/update.sh"
+zsh "$HOME/Customizer/dotfiles-master/update.sh"
 rm -rf ~/.zcompdump* >> $logFile
 exec zsh
