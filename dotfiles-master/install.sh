@@ -207,6 +207,9 @@ cloneDotfiles() {
   git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
 
+
+################################ SCRIPT BEGINNING ########################################
+
 # ASK SUDO PASSWORD (TO SAVE THE IN THE TERMINAL SESSION)
 sudo ls . > $logFile
 
