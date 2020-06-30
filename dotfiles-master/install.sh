@@ -4,52 +4,52 @@ source ./installers/programInstallers.sh
 source ./installers/extensionsInstallers.sh
 
 if [ $# -eq 1 ]; then
-  logFile=$1
+    logFile=$1
 else
-  echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
-  exit 1
+    echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
+    exit 1
 fi
 
 ############################
 # DOING OPERATION FEEDBACK #
 ############################
 showLoading() {
-  myPid=$!
-  loadingText=$1
-  eraseToEndOfLine="\r\033[K"
+    myPid=$!
+    loadingText=$1
+    eraseToEndOfLine="\r\033[K"
 
-  echo -ne "$loadingText\r"
-
-  while kill -0 $myPid 2>/dev/null; do
-    echo -ne "$loadingText.\r"
-    sleep 0.5
-    echo -ne "$loadingText..\r"
-    sleep 0.5
-    echo -ne "$loadingText...\r"
-    sleep 0.5
-    echo -ne "$eraseToEndOfLine"
     echo -ne "$loadingText\r"
-    sleep 0.5
-  done
 
-  echo -e "$loadingText \e[1;32m\xE2\x9C\x94\e[0m"
+    while kill -0 $myPid 2>/dev/null; do
+        echo -ne "$loadingText.\r"
+        sleep 0.5
+        echo -ne "$loadingText..\r"
+        sleep 0.5
+        echo -ne "$loadingText...\r"
+        sleep 0.5
+        echo -ne "$eraseToEndOfLine"
+        echo -ne "$loadingText\r"
+        sleep 0.5
+    done
+
+    echo -e "$loadingText \e[1;32m\xE2\x9C\x94\e[0m"
 }
 
 #################
 # SYSTEM UPDATE #
 #################
 systemUpdate() {
-  sudo apt-get update >> $logFile
-  sudo apt-get upgrade -y >> $logFile
-  sudo apt-get autoremove -y >> $logFile
-  sudo apt-get autoclean >> $logFile
+    sudo apt-get update >> $logFile
+    sudo apt-get upgrade -y >> $logFile
+    sudo apt-get autoremove -y >> $logFile
+    sudo apt-get autoclean >> $logFile
 }
 
 ######################
 # CLONING REPOSITORY #
 ######################
 cloneCustomizer() {
-  git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
+    git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
 
 ############################
@@ -104,15 +104,6 @@ installGuake & showLoading "Guake" #Y
 #installYarn & showLoading "Yarn"
 #installPythonTools & showLoading "Python Tools"
 #installVirtualenv & showLoading "Virtualenv"
-
-
-# EXTENSIONS AND PLUGINS
-echo "INSTALLING EXTENSIONS AND PLUGINS"
-installOhMyZsh & showLoading "Oh My Zsh" #N
-installDashToPanel & showLoading "Dash to Panel" #Y
-#installTheFuck & showLoading "TheFuck"
-#installFiraCode & showLoading "Fira Code"
-#installNerdTree & showLoading "NerdTree"
 
 # CLONING REPOSITORY
 echo "CLONING REPOSITORY"
