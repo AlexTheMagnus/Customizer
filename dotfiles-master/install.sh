@@ -52,6 +52,20 @@ cloneCustomizer() {
   git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
 
+############################
+# ADDING SSH KEY TO GITHUB #
+############################
+addSshKeyToGitHub() {
+    echo "ADDING SSH KEY TO GITHUB"
+    rm -rf ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
+    ssh-keygen -t rsa -b 4096
+    sshKey=$(cat ~/.ssh/id_rsa.pub)
+    read -s -p "Enter a personal acces token token with 'write:public_key' scope (https://github.com/settings/tokens): " githubToken
+    curl -i --header "Authorization: token $githubToken" --data "{\"title\": \"$(hostname)\", \"key\": \"$sshKey\"}" https://api.github.com/user/keys &>> $logFile
+    echo -ne "\n"
+    yes | ssh -T git@github.com >> $logFilesystemUpdate
+}
+
 ################################ SCRIPT BEGINNING ########################################
 
 # ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
@@ -68,14 +82,7 @@ installCurl & showLoading "Curl"
 
 
 # ADDING SSH KEY TO GITHUB
-echo "ADDING SSH KEY TO GITHUB"
-rm -rf ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
-ssh-keygen -t rsa -b 4096
-sshKey=$(cat ~/.ssh/id_rsa.pub)
-read -s -p "Enter a personal acces token token with 'write:public_key' scope (https://github.com/settings/tokens): " githubToken
-curl -i --header "Authorization: token $githubToken" --data "{\"title\": \"$(hostname)\", \"key\": \"$sshKey\"}" https://api.github.com/user/keys &>> $logFile
-echo -ne "\n"
-yes | ssh -T git@github.com >> $logFile
+addSshKeyToGitHub
 
 # INSTALLING OTHERS PACKAGES
 installDocker & showLoading "Docker" #Y
