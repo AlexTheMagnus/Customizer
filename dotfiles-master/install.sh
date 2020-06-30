@@ -45,9 +45,9 @@ systemUpdate() {
   sudo apt-get autoclean >> $logFile
 }
 
-########################
-# CLONING REPOSITORIES #
-########################
+######################
+# CLONING REPOSITORY #
+######################
 cloneCustomizer() {
   git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
@@ -107,9 +107,9 @@ installDashToPanel & showLoading "Dash to Panel" #Y
 #installFiraCode & showLoading "Fira Code"
 #installNerdTree & showLoading "NerdTree"
 
-# CLONING REPOSITORIES
+# CLONING REPOSITORY
 echo "CLONING REPOSITORY"
-cloneCustomizer & showLoading "Dotfiles"
+cloneCustomizer & showLoading "Customizer"
 
 # SHELL CONFIGURATION
 sudo chsh -s /bin/zsh $USER
