@@ -203,14 +203,14 @@ installNerdTree() {
 ########################
 # CLONING REPOSITORIES #
 ########################
-cloneDotfiles() {
+cloneCustomizer() {
   git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
 }
 
 
 ################################ SCRIPT BEGINNING ########################################
 
-# ASK SUDO PASSWORD (TO SAVE THE IN THE TERMINAL SESSION)
+# ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
 sudo ls . > $logFile
 
 # SYSTEM UPDATE
@@ -264,8 +264,8 @@ installDashToPanel & showLoading "Dash to Panel" #Y
 #installNerdTree & showLoading "NerdTree"
 
 # CLONING REPOSITORIES
-echo "CLONING REPOSITORIES"
-cloneDotfiles & showLoading "Dotfiles"
+echo "CLONING REPOSITORY"
+cloneCustomizer & showLoading "Dotfiles"
 
 # SHELL CONFIGURATION
 sudo chsh -s /bin/zsh $USER
