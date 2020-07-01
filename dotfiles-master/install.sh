@@ -63,7 +63,7 @@ addSshKeyToGitHub() {
     read -s -p "Enter a personal acces token token with 'write:public_key' scope (https://github.com/settings/tokens): " githubToken
     curl -i --header "Authorization: token $githubToken" --data "{\"title\": \"$(hostname)\", \"key\": \"$sshKey\"}" https://api.github.com/user/keys &>> $logFile
     echo -ne "\n"
-    yes | ssh -T git@github.com >> $logFilesystemUpdate
+    yes | ssh -T git@github.com >> $logFile
 }
 
 ################################ SCRIPT BEGINNING ########################################
