@@ -71,6 +71,16 @@ addSshKeyToGitHub() {
 # ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
 sudo ls . > $logFile
 
+# DISABLE AUTOMATIC TIMEOUT FOR SUSPEND
+#Get the current timeout for automatic suspend both for on battey power and when plugged in.
+suspendTimeout=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout)
+suspendTimeoutBattery=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout)
+
+#Disable automatic suspend 
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
+
+
 # SYSTEM UPDATE
 systemUpdate & showLoading "SYSTEM UPDATE"
 
@@ -114,3 +124,7 @@ sudo chsh -s /bin/zsh $USER
 zsh "$HOME/Customizer/dotfiles-master/update.sh"
 rm -rf ~/.zcompdump* >> $logFile
 exec zsh
+
+# RE-ENABLE AUTOMATIC SUSPEND
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout $suspendTimeoutBattery
