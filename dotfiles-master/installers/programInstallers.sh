@@ -15,6 +15,11 @@ installCurl() {
 installNumixFolders() {
 	sudo apt-get install numix-icon-theme >> $logFile
     git clone git@github.com:AlexTheMagnus/numix-folders.git >> $logFile
+   
+    if [ ! -d /opt/ ]; then
+        mkdir /opt
+    fi
+    
     sudo mv ./numix-folders /opt/
     sudo mv /opt/numix-folders/numix-folders.desktop /usr/share/applications/
 }
