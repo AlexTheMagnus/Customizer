@@ -90,8 +90,9 @@ installTelegram() {
 }
 
 installDiscord() {
-	wget -O /tmp/discord.deb https://discordapp.com/api/download?platform=linux&format=deb &>> $logfile
-	sudo dpkg -i /tmp/discord.deb &>> $logFile
+	wget https://discordapp.com/api/download?platform=linux&format=deb -O /tmp/discord.deb &>> $logFile
+	wait
+    sudo dpkg -i /tmp/discord.deb &>> $logFile
 	sudo apt-get install -f -y >> $logFile
 }
 
