@@ -27,7 +27,15 @@ installNumixFolders() {
 }
 
 installProjectHex() {
+    #Dependencies (make, gcc, etc...)
+    sudo apt-get install build-essential
+
     git clone git@github.com:AlexTheMagnus/Project_Hex.git >> $logFile
+       
+    if [ ! -d /opt/ ]; then
+        mkdir /opt/
+    fi
+    
     sudo mv ./Project_Hex /opt/
     cd /opt/Project_Hex/
     make
