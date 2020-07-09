@@ -101,12 +101,12 @@ installNpm & showLoading "Npm" #Y
 installNode & showLoading "Node" #Y
 installTelegram & showLoading "Telegram" #Y
 installFranz & showLoading "Franz" #Y
-installDiscord & showLoading "Discord" #N
+installDiscord & showLoading "Discord" #Y
 installSpotify & showLoading "Spotify" #Y
 installVSCode & showLoading "VSCode" #Y
-installNumixFolders & showLoading "Numix Folders" #N
+installNumixFolders & showLoading "Numix Folders" #Y
 installCaffeine & showLoading "Caffeine" #Y
-installProjectHex & showLoading "Project_Hex" #N
+installProjectHex & showLoading "Project_Hex" #Y
 installGuake & showLoading "Guake" #Y
 #installMegaSync & showLoading "MegaSync"
 #installTilda & showLoading "Tilda"
@@ -122,9 +122,9 @@ cloneCustomizer & showLoading "Customizer"
 # SHELL CONFIGURATION
 sudo chsh -s /bin/zsh $USER
 zsh "$HOME/Customizer/dotfiles-master/update.sh"
-rm -rf ~/.zcompdump* >> $logFile
-exec zsh
 
 # RE-ENABLE AUTOMATIC SUSPEND
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout $suspendTimeoutBattery
+
+exec zsh
