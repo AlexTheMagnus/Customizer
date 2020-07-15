@@ -99,9 +99,6 @@ installTelegram() {
     if [ ! -d /opt/Telegram ]; then
         sudo mv /tmp/Telegram /opt/
     fi
-
-	/opt/Telegram/Telegram
-	pkill Telegram
 }
 
 installDiscord() {
