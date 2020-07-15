@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source ./installers/programInstallers.sh
-source ./installers/extensionsInstallers.sh
+if [ "$EUID" -eq 0 ]
+  then echo "Please don't run as root"
+  exit 1
+fi
 
 if [ $# -eq 1 ]; then
     logFile=$1
@@ -9,6 +11,9 @@ else
     echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
     exit 1
 fi
+
+source ./installers/programInstallers.sh
+source ./installers/extensionsInstallers.sh
 
 ############################
 # DOING OPERATION FEEDBACK #
