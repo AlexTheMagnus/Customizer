@@ -99,6 +99,10 @@ installTelegram() {
     if [ ! -d /opt/Telegram ]; then
         sudo mv /tmp/Telegram /opt/
     fi
+
+    nohup /opt/Telegram/Telegram & >> $logFile
+    telegramPid=$(pidof Telegram)
+    kill -9 $telegramPid
 }
 
 installDiscord() {
