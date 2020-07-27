@@ -59,14 +59,20 @@ addSshKeyToGitHub() {
     yes | ssh -T git@github.com >> $logFile
 }
 
+#
+checkNoSudo() {
+    if [ "$EUID" -eq 0 ]; then
+        echo "Please don't run as root"
+        exit 1
+    fi
+}
+
 ################################ SCRIPT BEGINNING ########################################
 
 installScript() {
 
-    if [ "$EUID" -eq 0 ]
-    then echo "Please don't run as root"
-    exit 1
-    fi
+    # Check no super user is used
+    checkNoSudo
 
     if [ $# -eq 1 ]; then
         logFile=$1
@@ -138,10 +144,7 @@ installScript() {
 }
 
 testScript() {
-    if [ "$EUID" -eq 0 ]
-    then echo "Please don't run as root"
-    exit 1
-    fi
+    checkNoSudo
 
     if [ $# -eq 1 ]; then
         logFile=$1
