@@ -2,6 +2,9 @@
 
 source ./install.sh
 
+# Check no super user is used
+checkNoSudo
+
 if [ $# -lt 1 ]; then
     echo "Error" 
     echo "Add -h option for usage"
@@ -22,32 +25,49 @@ helpMessage() {
     echo " -h -> Help"
     echo
 }
- 
+
+######################### Get all the options introduced ###############################
 while getopts 'haicpl:' OPT    # -a {argument}, -b, -c
 do
     case "$OPT" in
-        h)  helpMessage ;               # Help
-            break ;;
-        a)  if [ ! "$iFlag" ] && [ ! "$cFlag" ] && [ ! "$pFlag" ] ; then    # All
-                aFlag=true;
-                testScript $logFile
-            fi ;;
-        i)  if [ ! "$aFlag" ] ; then    # Install programs
-                iFlag=true;
-                echo "i option";
-            fi ;;
-        c)  if [ ! "$aFlag" ] ; then    # Configure system (pluggins and extensions)
-                cFlag=true;
-                echo "c option";   
-            fi ;;
-        p)  if [ ! "$aFlag" ] ; then    # Personalize system (wallpaper, theme and icons)
-                pFlag=true;
-                echo "p option";
-            fi ;;
-        l)  logFile=$OPTARG; echo "l option: arg=$logFile" ;;  # LogFile
-        ?)  echo "ERROR" >&2; exit 1 ;;
+        h)  hFlag=true;;            # Help
+        a)  aFlag=true;;            # All
+        i)  iFlag=true;;            # Install programs
+        c)  cFlag=true;;            # Configure system (pluggins and extensions)
+        p)  pFlag=true;;            # Personalize system (wallpaper, theme and icons)
+        l)  logFile=$OPTARG;;       # LogFile
+        ?)  echo "ERROR - This option doesn't exist" >&2; exit ;;
     esac
 done
-shift "$(($OPTIND - 1))" 
 
-echo "Executed $logFile"
+# Help
+if [ "$hFlag" ] ; then
+    helpMessage;
+    exit;
+fi
+
+# Check no imcompatible options have been introduced
+if [ "$aFlag" ] && ([ "$iFlag" ] || [ "$cFlag" ] || [ "$pFlag" ]) ; then
+    echo "ERROR - '-a' option is not compatible with '-i', '-c' or '-p' option";
+    exit 1;
+fi
+
+# All
+if [ "$aFlag" ] ; then
+    testScript $logFile
+fi
+
+# Install programs
+if [ "$iFlag" ] ; then
+    echo "i option";
+fi
+
+# Configure system
+if [ "$cFlag" ] ; then
+    echo "c option";
+fi
+
+# Personalize system
+if [ "$pFlag" ] ; then
+    echo "p option";
+fi
