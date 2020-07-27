@@ -1,3 +1,3 @@
-# dotfiles
+# customizer
 
-Configuration files that I use in my personal laptop and computer
+A bunch of scripts to set up my system
