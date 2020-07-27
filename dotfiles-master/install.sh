@@ -1,17 +1,5 @@
 #!/bin/bash
 
-if [ "$EUID" -eq 0 ]
-  then echo "Please don't run as root"
-  exit 1
-fi
-
-if [ $# -eq 1 ]; then
-    logFile=$1
-else
-    echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
-    exit 1
-fi
-
 source ./installers/programInstallers.sh
 source ./installers/extensionsInstallers.sh
 
@@ -73,63 +61,94 @@ addSshKeyToGitHub() {
 
 ################################ SCRIPT BEGINNING ########################################
 
-# ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
-sudo ls . > $logFile
+installScript() {
 
-# DISABLE AUTOMATIC TIMEOUT FOR SUSPEND
-#Get the current timeout for automatic suspend both for on battey power and when plugged in.
-suspendTimeout=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout)
-suspendTimeoutBattery=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout)
+    if [ "$EUID" -eq 0 ]
+    then echo "Please don't run as root"
+    exit 1
+    fi
 
-#Disable automatic suspend 
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
+    if [ $# -eq 1 ]; then
+        logFile=$1
+    else
+        echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
+        exit 1
+    fi
+
+    # ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
+    sudo ls . > $logFile
+
+    # DISABLE AUTOMATIC TIMEOUT FOR SUSPEND
+    #Get the current timeout for automatic suspend both for on battey power and when plugged in.
+    suspendTimeout=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout)
+    suspendTimeoutBattery=$(gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout)
+
+    #Disable automatic suspend 
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
 
 
-# SYSTEM UPDATE
-systemUpdate & showLoading "SYSTEM UPDATE"
+    # SYSTEM UPDATE
+    systemUpdate & showLoading "SYSTEM UPDATE"
 
-# INSTALLING BASIC PACKAGES
-echo -e "INSTALLING BASIC PACKAGES"
-installGit & showLoading "Git"
-installZsh & showLoading "Zsh"
-installCurl & showLoading "Curl"
+    # INSTALLING BASIC PACKAGES
+    echo -e "INSTALLING BASIC PACKAGES"
+    installGit & showLoading "Git"
+    installZsh & showLoading "Zsh"
+    installCurl & showLoading "Curl"
 
 
-# ADDING SSH KEY TO GITHUB
-addSshKeyToGitHub
+    # ADDING SSH KEY TO GITHUB
+    addSshKeyToGitHub
 
-# INSTALLING OTHERS PACKAGES
-installDocker & showLoading "Docker" #Y
-installDockerCompose & showLoading "Docker-Compose" #Y
-installNpm & showLoading "Npm" #Y
-installNode & showLoading "Node" #Y
-installTelegram & showLoading "Telegram" #Y
-installFranz & showLoading "Franz" #Y
-installDiscord & showLoading "Discord" #Y
-installSpotify & showLoading "Spotify" #Y
-installVSCode & showLoading "VSCode" #Y
-installNumixFolders & showLoading "Numix Folders" #Y
-installCaffeine & showLoading "Caffeine" #Y
-installProjectHex & showLoading "Project_Hex" #Y
-installGuake & showLoading "Guake" #Y
-#installMegaSync & showLoading "MegaSync"
-#installTilda & showLoading "Tilda"
-#installVim & showLoading "Vim"
-#installYarn & showLoading "Yarn"
-#installPythonTools & showLoading "Python Tools"
-#installVirtualenv & showLoading "Virtualenv"
+    # INSTALLING OTHERS PACKAGES
+    installDocker & showLoading "Docker" #Y
+    installDockerCompose & showLoading "Docker-Compose" #Y
+    installNpm & showLoading "Npm" #Y
+    installNode & showLoading "Node" #Y
+    installTelegram & showLoading "Telegram" #Y
+    installFranz & showLoading "Franz" #Y
+    installDiscord & showLoading "Discord" #Y
+    installSpotify & showLoading "Spotify" #Y
+    installVSCode & showLoading "VSCode" #Y
+    installNumixFolders & showLoading "Numix Folders" #Y
+    installCaffeine & showLoading "Caffeine" #Y
+    installProjectHex & showLoading "Project_Hex" #Y
+    installGuake & showLoading "Guake" #Y
+    #installMegaSync & showLoading "MegaSync"
+    #installTilda & showLoading "Tilda"
+    #installVim & showLoading "Vim"
+    #installYarn & showLoading "Yarn"
+    #installPythonTools & showLoading "Python Tools"
+    #installVirtualenv & showLoading "Virtualenv"
 
-# CLONING REPOSITORY
-echo "CLONING REPOSITORY"
-cloneCustomizer & showLoading "Customizer"
+    # CLONING REPOSITORY
+    echo "CLONING REPOSITORY"
+    cloneCustomizer & showLoading "Customizer"
 
-# SHELL CONFIGURATION
-sudo chsh -s /bin/zsh $USER
-zsh "$HOME/Customizer/dotfiles-master/update.sh"
+    # SHELL CONFIGURATION
+    sudo chsh -s /bin/zsh $USER
+    zsh "$HOME/Customizer/dotfiles-master/update.sh"
 
-# RE-ENABLE AUTOMATIC SUSPEND
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout $suspendTimeoutBattery
+    # RE-ENABLE AUTOMATIC SUSPEND
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout $suspendTimeoutBattery
 
-exec zsh
+    exec zsh
+}
+
+testScript() {
+    if [ "$EUID" -eq 0 ]
+    then echo "Please don't run as root"
+    exit 1
+    fi
+
+    if [ $# -eq 1 ]; then
+        logFile=$1
+    else
+        echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
+        exit 1
+    fi
+
+    echo "Esto funciona :) $logFile"
+}
