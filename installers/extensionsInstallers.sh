@@ -9,9 +9,9 @@ installOhMyZsh() {
 
 installDashToPanel(){
     # Dependencies
-    sudo apt install gnome-shell-extensions &>> $logFile
+    sudo apt install -y gnome-shell-extensions &>> $logFile
 
-    sudo apt-get install chrome-gnome-shell &>> $logFile
+    sudo apt-get install -y chrome-gnome-shell &>> $logFile
 
     wget https://addons.mozilla.org/firefox/downloads/file/898030/gnome_shell_integration-10.1-an+fx-linux.xpi &>> $logFile
     mv /home/test/Desktop/gnome_shell_integration-10.1-an+fx-linux.xpi /home/test/.mozilla/firefox/1kptzoyl.default-release/extensions/chrome-gnome-shell@gnome.org.xpi #Move and rename
