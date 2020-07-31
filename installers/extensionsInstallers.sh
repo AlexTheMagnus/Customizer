@@ -28,12 +28,3 @@ installDashToPanel(){
     done
     echo "NICE!"
 }
-
-installFiraCode() {
-  sudo apt-get install -y fonts-firacode >> $logFile
-}
-
-installNerdTree() {
-  git clone https://github.com/scrooloose/nerdtree.git ~/.vim/pack/vendor/start/nerdtree &>> $logFile
-  vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q &>> $logFile
-}
