@@ -1,5 +1,5 @@
 [core]
-   	excludesfile = ~/dotfiles/git/.gitignore #Ruta al .gitignore global
+   	excludesfile = ~/Customizer/git/.gitignore  # Ruta al .gitignore global
 	editor = gedit
 [user]
 	name = AlexTheMagnus
