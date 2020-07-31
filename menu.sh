@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./install.sh
+source ./extensions.sh
 
 # Check no super user is used
 checkNoSudo
@@ -33,7 +34,7 @@ do
         h)  hFlag=true;;            # Help
         a)  aFlag=true;;            # All
         i)  iFlag=true;;            # Install programs
-        c)  cFlag=true;;            # Configure system (pluggins and extensions)
+        c)  cFlag=true;;            # Configure system (extensions and settings)
         p)  pFlag=true;;            # Personalize system (wallpaper, theme and icons)
         l)  logFile=$OPTARG;;       # LogFile
         ?)  echo "ERROR - This option doesn't exist" >&2; exit ;;
@@ -46,7 +47,7 @@ if [ "$hFlag" ] ; then
     exit;
 fi
 
-# Check no imcompatible options have been introduced
+# Check non-imcompatible options have been introduced
 if [ "$aFlag" ] && ([ "$iFlag" ] || [ "$cFlag" ] || [ "$pFlag" ]) ; then
     echo "ERROR - '-a' option is not compatible with '-i', '-c' or '-p' option";
     exit 1;
@@ -54,17 +55,17 @@ fi
 
 # All
 if [ "$aFlag" ] ; then
-    testScript $logFile
+    echo "a option";
 fi
 
 # Install programs
 if [ "$iFlag" ] ; then
-    echo "i option";
+    testScript
 fi
 
 # Configure system
 if [ "$cFlag" ] ; then
-    echo "c option";
+    configureScript
 fi
 
 # Personalize system
