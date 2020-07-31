@@ -8,11 +8,25 @@ installOhMyZsh() {
 }
 
 installDashToPanel(){
-    wget https://extensions.gnome.org/extension-data/dash-to-paneljderose9.github.com.v30.shell-extension.zip -O /tmp/dash-to-panel.zip &>> $logFile
-    uuid=$(unzip -c /tmp/dash-to-panel.zip metadata.json | grep uuid | cut -d \" -f4)
-    mkdir -p ~/.local/share/gnome-shell/extensions/$uuid
-    unzip -q /tmp/dash-to-panel.zip -d ~/.local/share/gnome-shell/extensions/$uuid/
-    gnome-shell-extension-tool -e $uuid
+    # Dependencies
+    sudo apt install gnome-shell-extensions
+
+    sudo apt-get install chrome-gnome-shell
+
+    wget https://addons.mozilla.org/firefox/downloads/file/898030/gnome_shell_integration-10.1-an+fx-linux.xpi
+    mv /home/test/Desktop/gnome_shell_integration-10.1-an+fx-linux.xpi /home/test/.mozilla/firefox/1kptzoyl.default-release/extensions/chrome-gnome-shell@gnome.org.xpi #Move and rename
+    # Need to be enabled manually
+
+    # dash-to-panel installation
+    firefox https://extensions.gnome.org/extension/1160/dash-to-panel/
+    echo "It's time to enable dash-to-panel. Also, you are going to need to enable chrome-gnome-shell extension through firefox menu."
+    read -p "Have you alredy done it? [y/n] " answer
+
+    while [[ $answer != "y" ]]
+    do
+        read -p "Ok, I'll wait... Have you alredy done it? [y/n] " answer
+    done
+    echo "NICE!"
 }
 
 installFiraCode() {
