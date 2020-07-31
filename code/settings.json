@@ -17,5 +17,8 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "python.jediEnabled": false,
     "explorer.confirmDragAndDrop": false,
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    //Git
+    "git.suggestSmartCommit": false,
+    "git.confirmSync": false
 }
