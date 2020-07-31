@@ -38,13 +38,6 @@ systemUpdate() {
     sudo apt-get autoclean >> $logFile
 }
 
-######################
-# CLONING REPOSITORY #
-######################
-cloneCustomizer() {
-    git clone --recurse-submodules -j8 git@github.com:AlexTheMagnus/Customizer.git $HOME/Customizer &>> $logFile
-}
-
 ############################
 # ADDING SSH KEY TO GITHUB #
 ############################
@@ -73,13 +66,6 @@ installScript() {
 
     # Check no super user is used
     checkNoSudo
-
-    if [ $# -eq 1 ]; then
-        logFile=$1
-    else
-        echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
-        exit 1
-    fi
 
     # ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
     sudo ls . > $logFile
@@ -128,30 +114,17 @@ installScript() {
     #installPythonTools & showLoading "Python Tools"
     #installVirtualenv & showLoading "Virtualenv"
 
-    # CLONING REPOSITORY
-    echo "CLONING REPOSITORY"
-    cloneCustomizer & showLoading "Customizer"
-
-    # SHELL CONFIGURATION
-    sudo chsh -s /bin/zsh $USER
-    zsh "$HOME/Customizer/dotfiles-master/update.sh"
-
     # RE-ENABLE AUTOMATIC SUSPEND
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout $suspendTimeoutBattery
 
-    exec zsh
+    #exec zsh
 }
 
 testScript() {
     checkNoSudo
 
-    if [ $# -eq 1 ]; then
-        logFile=$1
-    else
-        echo "You need provide a path for the log file (e.g. './install /tmp/dotfilesInstallLog.txt')"
-        exit 1
-    fi
+    echo "holi" >> $logFile
 
     echo "Esto funciona :) $logFile"
 }
