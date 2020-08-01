@@ -9,6 +9,9 @@ cloneCustomizer() {
 
 configureScript() {
 
+    # ASK SUDO PASSWORD (TO STATE THE TERMINAL SESSION AS SUDO)
+    sudo ls . > $logFile
+
     # EXTENSIONS AND PLUGINS
     echo "INSTALLING EXTENSIONS AND PLUGINS"
     installOhMyZsh & showLoading "Oh My Zsh" #N
