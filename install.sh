@@ -79,7 +79,6 @@ installScript() {
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
 
-
     # SYSTEM UPDATE
     systemUpdate & showLoading "SYSTEM UPDATE"
 
@@ -89,7 +88,6 @@ installScript() {
     installZsh & showLoading "Zsh"
     installCurl & showLoading "Curl"
 
-
     # ADDING SSH KEY TO GITHUB
     addSshKeyToGitHub
 
@@ -98,7 +96,7 @@ installScript() {
     installDockerCompose & showLoading "Docker-Compose" #Y
     installNpm & showLoading "Npm" #Y
     installNode & showLoading "Node" #Y
-    installTelegram & showLoading "Telegram" #Y
+    installTelegram & showLoading "Telegram" #Y opening error
     installFranz & showLoading "Franz" #Y
     installDiscord & showLoading "Discord" #Y
     installSpotify & showLoading "Spotify" #Y
@@ -107,12 +105,6 @@ installScript() {
     installCaffeine & showLoading "Caffeine" #Y
     installProjectHex & showLoading "Project_Hex" #Y
     installGuake & showLoading "Guake" #Y
-    #installMegaSync & showLoading "MegaSync"
-    #installTilda & showLoading "Tilda"
-    #installVim & showLoading "Vim"
-    #installYarn & showLoading "Yarn"
-    #installPythonTools & showLoading "Python Tools"
-    #installVirtualenv & showLoading "Virtualenv"
 
     # RE-ENABLE AUTOMATIC SUSPEND
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout $suspendTimeout
